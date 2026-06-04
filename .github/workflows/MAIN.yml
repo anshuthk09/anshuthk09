@@ -22,7 +22,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-    # Checks repo under $GITHUB_WORKSHOP, so your job can access it
+    # Checks repo under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
     # Generates the snake  
@@ -37,16 +37,10 @@ jobs:
      # show the status of the build. Makes it easier for debugging (if there's any issues).
       - run: git status
 
-      # Push the changes
-      
-      - name: Push changes
-      uses: ad-m/github-push-action@master 
-      with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      branch: main 
-      force: true 
-      uses: crazy-max/ghaction-github-pages@v4
-      with:
+      # Push the generated files to output branch
+      - name: Push generated files
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
           # the output branch we mentioned above
           target_branch: output
           build_dir: dist
